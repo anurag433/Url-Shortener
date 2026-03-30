@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('shortener.urls')),
+    path('api/v1/', include('shortener.urls')),
+    path('', include('shortener.redirect_urls')),
 ]
