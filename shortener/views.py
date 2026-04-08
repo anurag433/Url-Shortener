@@ -41,6 +41,6 @@ class RedirectView(APIView):
 
             return redirect(obj.original_url)
 
-        
+
         except ShortURL.DoesNotExist:
             raise Http404("Url not found !")
