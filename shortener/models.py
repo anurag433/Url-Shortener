@@ -2,7 +2,7 @@ from django.db import models
 
 class ShortURL(models.Model):
 
-    original_url = models.URLField() 
+    original_url = models.CharField() 
     short_code = models.CharField(
         max_length = 5 ,
         unique = True    
