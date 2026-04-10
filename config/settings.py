@@ -24,9 +24,9 @@ from dotenv import load_dotenv
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -140,7 +140,7 @@ STATIC_URL = '/static/'
 #     }
 # }
 
-# Connecting Redis for caching in Local Development
+# # Connecting Redis for caching in Local Development
 
 # CACHES = {
 #     "default": {
@@ -173,3 +173,5 @@ DATABASES = {
         os.environ.get("DATABASE_URL")
     )
 }
+
+
