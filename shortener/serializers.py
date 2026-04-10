@@ -14,7 +14,7 @@ class ShortURLSerializer(serializers.ModelSerializer):
         value = value.strip()
 
         if not value.startswith(('http://', 'https://')):
-            value = 'http://' + value
+            value = 'https://' + value
 
         validator = URLValidator()
         try:
