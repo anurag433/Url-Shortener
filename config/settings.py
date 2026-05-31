@@ -126,19 +126,19 @@ STATIC_URL = '/static/'
 
 # Connecting the Database
 
-import os
-from dotenv import load_dotenv
-load_dotenv()
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-    }
-}
+# import os
+# from dotenv import load_dotenv
+# load_dotenv()
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DB_NAME'),
+#         'USER': os.getenv('DB_USER'),
+#         'PASSWORD': os.getenv('DB_PASSWORD'),
+#         'HOST': os.getenv('DB_HOST'),
+#         'PORT': os.getenv('DB_PORT'),
+#     }
+# }
 
 # # Connecting Redis for caching in Local Development
 
@@ -165,13 +165,13 @@ CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ['*']
 
 
-# import dj_database_url
-# import os
+import dj_database_url
+import os
 
-# DATABASES = {
-#     'default': dj_database_url.parse(
-#         os.environ.get("DATABASE_URL")
-#     )
-# }
+DATABASES = {
+    'default': dj_database_url.parse(
+        os.environ.get("DATABASE_URL")
+    )
+}
 
 
