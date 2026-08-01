@@ -22,3 +22,4 @@ urlpatterns = [
     path('api/v1/', include('shortener.urls')),
     path('', include('shortener.redirect_urls')),
 ]
+

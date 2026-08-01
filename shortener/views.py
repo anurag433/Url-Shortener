@@ -7,6 +7,7 @@ from .models import ShortURL
 from .serializers import ShortURLSerializer
 from .services import create_short_url
 from core.cache import get_from_cache, set_to_cache
+from django.http import JsonResponse
 
 class CreateShortURLView(APIView):
 
@@ -44,3 +45,6 @@ class RedirectView(APIView):
         
         except ShortURL.DoesNotExist:
             raise Http404("Url not found !")
+
+def health(request):
+    return JsonResponse({"status": "ok"})
