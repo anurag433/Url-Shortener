@@ -8,7 +8,7 @@ __pycache__/
 db.sqlite3
 *.log
 media/
-
+media/*
 # Environment
 .env
 .env.*

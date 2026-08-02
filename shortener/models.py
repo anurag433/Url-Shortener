@@ -7,14 +7,17 @@ class ShortURL(models.Model):
         max_length = 5 ,
         unique = True    
     )
-
     created_at = models.DateField(auto_now_add=True)
     expiry_date = models.DateField(
         null=True,
         blank=True
     )
-
     clicks = models.IntegerField(default=0)
+    qr_code = models.ImageField(
+        upload_to="qr_codes/",
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.short_code

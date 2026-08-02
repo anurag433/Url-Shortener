@@ -187,3 +187,8 @@ else:
             "PORT": os.getenv("DB_PORT"),
         }
     }
+
+#  For QR CODE
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
