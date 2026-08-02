@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.http import Http404
 from .models import ShortURL
 from .serializers import ShortURLSerializer
-from .services import create_short_url
+from .services import create_short_url, generate_qr
 from core.cache import get_from_cache, set_to_cache
 from django.http import JsonResponse
 from django.utils import timezone
@@ -23,11 +23,13 @@ class CreateShortURLView(APIView):
             )
 
             short_url = request.build_absolute_uri(f"/{obj.short_code}")
+            generate_qr(obj, short_url)
             return Response({
                 "short_url": short_url,
                 "clicks": obj.clicks,
                 "created_at": obj.created_at,
                 "expiry_date": obj.expiry_date,
+                "qr_code": request.build_absolute_uri(obj.qr_code.url)
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
