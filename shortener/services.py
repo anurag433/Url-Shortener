@@ -2,7 +2,7 @@ from .models import ShortURL
 from .utils import generate_short_code
 import qrcode
 from io import BytesIO
-from django.core.files import File
+from .storage import upload_file
 
 def create_short_url(original_url, expiry_date=None):
 
@@ -18,13 +18,17 @@ def create_short_url(original_url, expiry_date=None):
         expiry_date=expiry_date
     )
 
+
 def generate_qr(obj, short_url):
     qr = qrcode.make(short_url)
     buffer = BytesIO()
     qr.save(buffer, format="PNG")
+    buffer.seek(0)
+
     filename = f"{obj.short_code}.png"
-    obj.qr_code.save(
-        filename,
-        File(buffer),
-        save=True
+    public_url = upload_file(
+        buffer.getvalue(),
+        filename
     )
+    obj.qr_code_url = public_url
+    obj.save(update_fields=["qr_code_url"])
