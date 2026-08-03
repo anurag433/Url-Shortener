@@ -29,7 +29,7 @@ class CreateShortURLView(APIView):
                 "clicks": obj.clicks,
                 "created_at": obj.created_at,
                 "expiry_date": obj.expiry_date,
-                "qr_code": request.build_absolute_uri(obj.qr_code.url)
+                "qr_code": obj.qr_code_url
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

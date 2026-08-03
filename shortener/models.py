@@ -13,10 +13,9 @@ class ShortURL(models.Model):
         blank=True
     )
     clicks = models.IntegerField(default=0)
-    qr_code = models.ImageField(
-        upload_to="qr_codes/",
-        null=True,
-        blank=True
+    qr_code_url = models.URLField(
+        blank=True,
+        null=True
     )
 
     def __str__(self):
