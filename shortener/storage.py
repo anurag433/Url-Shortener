@@ -21,3 +21,7 @@ def upload_file(file_bytes: bytes, filename: str):
     )
 
     return supabase.storage.from_(bucket).get_public_url(filename)
+
+def delete_file(filename):
+    bucket = settings.SUPABASE_BUCKET
+    supabase.storage.from_(bucket).remove([filename])
