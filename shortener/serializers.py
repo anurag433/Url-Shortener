@@ -38,3 +38,15 @@ class ShortURLSerializer(serializers.ModelSerializer):
                 "Expiry date must be after creation date"
             )
         return value
+
+class URLAnalyticsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShortURL
+        fields = [
+            "original_url",
+            "short_code",
+            "created_at",
+            "expiry_date",
+            "clicks",
+            "qr_code_url",
+        ]
