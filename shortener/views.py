@@ -10,11 +10,14 @@ from core.cache import get_from_cache, set_to_cache, delete_from_cache
 from django.http import JsonResponse
 from django.utils import timezone
 from .storage import delete_file
+from .cleanup import cleanup_old_urls
 
 class CreateShortURLView(APIView):
 
     def post(self, request):
-        
+
+        cleanup_old_urls()
+
         serializer = ShortURLSerializer(data = request.data)
         if serializer.is_valid():
             obj = create_short_url(
@@ -121,7 +124,6 @@ class URLAnalyticsView(APIView):
 class DeleteShortURLView(APIView):
     def delete(self, request, short_code):
         try:
-
             obj = ShortURL.objects.get(short_code=short_code)
             delete_file(f"{obj.short_code}.png")
             delete_from_cache(short_code)
