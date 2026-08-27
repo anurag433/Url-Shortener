@@ -7,13 +7,18 @@ from django.utils import timezone
 class ShortURLSerializer(serializers.ModelSerializer):
     
     original_url = serializers.CharField()
+    custom_url = serializers.CharField(
+        required=False,
+        allow_null=True,
+        allow_blank =True
+    )
     expiry_date = serializers.DateField(
         required=False,
         allow_null=True
     )
     class Meta:
         model = ShortURL
-        fields = [ 'original_url', 'expiry_date']
+        fields = [ 'original_url', 'expiry_date', 'custom_url']
 
     def validate_original_url(self, value):
         value = value.strip()
@@ -39,6 +44,28 @@ class ShortURLSerializer(serializers.ModelSerializer):
             )
         return value
 
+    def validate_custom_url(self, value):
+        if not value:
+            return None
+
+        value = value.strip() 
+        if len(value) < 4 or len(value) > 20:
+            raise serializers.ValidationError(
+                "Custom url must be between 4 and 20 character"
+            )
+
+        import re
+        if not re.match(r"^[A-Za-z0-9_-]+$", value):
+            raise serializers.ValidationError(
+                "Custom url can contain only letters, numbers, '-' and '_'."
+            )
+
+        if ShortURL.objects.filter(short_code=value).exists():
+            raise serializers.ValidationError(
+                "This custom url is already taken"
+            )
+
+        return value 
 class URLAnalyticsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShortURL

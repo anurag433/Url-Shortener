@@ -22,7 +22,8 @@ class CreateShortURLView(APIView):
         if serializer.is_valid():
             obj = create_short_url(
                 serializer.validated_data['original_url'],
-                serializer.validated_data.get("expiry_date")
+                serializer.validated_data.get("expiry_date"),
+                serializer.validated_data.get("custom_url")
             )
 
             short_url = request.build_absolute_uri(f"/{obj.short_code}")

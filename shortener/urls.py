@@ -1,4 +1,3 @@
-# shortener/urls.py
 
 from django.urls import path
 from .views import CreateShortURLView, RedirectView,URLAnalyticsView,DeleteShortURLView,health 

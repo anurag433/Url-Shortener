@@ -4,7 +4,7 @@ class ShortURL(models.Model):
 
     original_url = models.URLField(max_length=2048) 
     short_code = models.CharField(
-        max_length = 5 ,
+        max_length = 20 ,
         unique = True    
     )
     created_at = models.DateField(auto_now_add=True)
